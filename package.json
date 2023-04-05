@@ -13,7 +13,7 @@
         "client": "npm run start --prefix client",
         "dev": "concurrently \"npm run server\" \"npm run client\""
     },
-    "author": "",
+    "author": "Saad Saiyed",
     "license": "ISC",
     "dependencies": {
         "concurrently": "^6.2.0",
