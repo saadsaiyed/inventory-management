@@ -5,10 +5,15 @@ const passport = require("passport");
 const keys = require("./config/keys");
 const cors = require("cors");
 
+//we are using this way of importing modules because this way
+// import express from 'express'
+// is ES2015 compatible which is not supported by node at the moment
+// instead we use common nodejs modules.
+
 require("./models/User");
 require("./models/Product");
 require("./models/Barcode");
-
+88
 require("./services/passport");
 
 mongoose.connect(keys.mongoURI, { useUnifiedTopology: true });  // Connect to the MongoDB

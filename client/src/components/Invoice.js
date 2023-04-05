@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Axios from "axios";
+// import Axios from "axios";
 
 export default function Invoice() {
     const [counter, setCounter] = useState(0);
-
 
     return (
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 ">

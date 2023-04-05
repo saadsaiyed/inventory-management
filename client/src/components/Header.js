@@ -9,9 +9,9 @@ import { Link } from "react-router-dom";
 const navigation = ["Dashboard", "Invoice", "Production", "ProductReport"];
 const profile = ["Your Profile", "Settings", "Sign out"];
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-}
+// function classNames(...classes) {
+//     return classes.filter(Boolean).join(" ");
+// }
 
 class Header extends Component {
     // renderContent() {
