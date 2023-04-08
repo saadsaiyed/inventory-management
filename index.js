@@ -34,4 +34,10 @@ require("./routes/authRoutes")(app); // This is to pass the app instance to the 
 require("./routes/productRoutes")(app); 
 require("./routes/barcodeRoutes")(app); 
 
+app.get("/", async (req, res) => {
+	res.send({
+		"Hi": "there. This is root."
+	});
+});
+
 app.listen(process.env.PORT || 5000, () => console.log("Backend Server is live"));
