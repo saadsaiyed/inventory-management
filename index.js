@@ -13,7 +13,7 @@ const cors = require("cors");
 require("./models/User");
 require("./models/Product");
 require("./models/Barcode");
-88
+
 require("./services/passport");
 
 mongoose.connect(keys.mongoURI, { useUnifiedTopology: true });  // Connect to the MongoDB
@@ -36,8 +36,8 @@ require("./routes/barcodeRoutes")(app);
 
 app.get("/", async (req, res) => {
 	res.send({
-		"Hi": "there. This is root."
+		"Hi there.": "This is root."
 	});
 });
 
-app.listen(process.env.PORT || 5000, () => console.log("Backend Server is live"));
+app.listen(process.env.PORT || 5000, () => console.log("\n=======================================\nBackend Server is live\n=======================================\n"));
