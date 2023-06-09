@@ -8,12 +8,14 @@ const preferenceSchema = new Schema({
 
 const userLesseeSchema = new Schema(
     {
-        _user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-        current_address: { type: String, required: false },
-        prev_landlord: { type: String, required: false },
-        lease_period: { type: Number, enum: [1, 2, 3], required: true, default: 1 }, //  1 (3 months), 2 (6 months), 3 (12 months)
-        message: { type: String, required: true, default: ""}, // Set default value on the POST api call
-        _preference: { type: preferenceSchema, required: false },
+        googleID: String,
+        user_type: {
+            type: Number,
+            enum: [1, 2],
+            default: 1
+        },
+        phone: String,
+        email_subscription: Boolean
     },
     {
         timestamp: true,
