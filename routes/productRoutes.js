@@ -4,7 +4,6 @@ const Product = mongoose.model("products");
 
 module.exports = app => {
     app.get("/api/product", async (req, res) => {
-        let response;
         var query = req.query;
         console.log(query);
         if (query.barcode) {
@@ -23,9 +22,9 @@ module.exports = app => {
                 res.status(500).json({ error: 'An error occurred while retrieving product information.' });
             }
         }
-        else if (query.name) {
+        else if (query.search) {
             //we send the name with an object instead of string because we need "LIKE" in the query string.
-            const product = await Product.find({ name: { $regex: query.name, $options: 'i' } }).exec();
+            const product = await Product.find({ name: { $regex: query.search, $options: 'i' } }).exec();
             res.send(product);
         }
     });

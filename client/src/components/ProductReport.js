@@ -1,11 +1,26 @@
 import React, { useEffect, useState } from "react";
-import Axios from "axios";
+import { connect } from 'react-redux';
+import { searchProduct } from "../actions";
 
-function handleSubmit() {
-    this.search
-}
 
-function ProductReport() {
+
+const ProductReport = ({ searchProduct, products, loading, error }) => {
+    useEffect(() => {
+        // Initial search when the component mounts
+        searchProduct('initial search term');
+    }, [searchProduct]);
+
+
+    function handleSearch(searchTerm) {
+        searchProduct(searchTerm)
+        console.log("products.toString()");
+        console.log(products.toString());
+    }
+
+    function handleSubmit() {
+        // products._id;
+    }
+
     return (
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 ">
             <form onSubmit={handleSubmit()}>
@@ -28,6 +43,7 @@ function ProductReport() {
                                     id="product_search"
                                     name="product_search"
                                     type="text"
+                                    onChange={(e) => handleSearch(e.target.value)}
                                 />
                                 <input type="submit" value="Submit" name="submit" />
                             </div>
@@ -38,99 +54,18 @@ function ProductReport() {
                     <div className="-my-2 sm:-mx-6 lg:-mx-8">
                         <div className="py-2 align-middle min-w-full sm:px-6 lg:px-8">
                             <div className="shadow border-b border-gray-200 sm:rounded-lg">
-                                <div class="grid item4">
-                                    <div class="inside">
-                                        <span>Warehouse Details (1 LB) : For Each 114g you need to have 1lb</span>
-                                        <span id="rationCalculator"><label>Number of Pound: </label><input type="text" size='10' onchange="ratioCalculator(this.value, '')" /></span>
-                                    </div>
-                                    <div class="details">
-                                        <div class="iitem1">
-                                            <table>
-                                                <tr>
-                                                    <td><label for="">Barcode :</label></td><td><label for=""></label></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><label for="">Item Code :</label></td><td><label for=""></label></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="iitem2">
-                                            <table>
-                                                <tr>
-                                                    <td><label for="">Locations :</label></td><td><label for=""></label></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><label for="">Zone :</label></td><td><label for=""></label></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="iitem3">
-                                            <table>
-                                                <tr>
-                                                    <td><label for="">Yearly Avg :</label></td><td><label for=""></label></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><label for="">In Stock :</label></td><td><label for=""></label></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="iitem4">
-                                            <table>
-                                                <tr>
-                                                    <td><label for="">Total Sold :</label></td><td><label for=""></label></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><label for="">Warehouse Stock :</label></td><td><label for=""></label></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="grid item6">
-                                    <div class="inside"><span>Warehouse Details (114g) :</span></div>
-                                    <div class="details">
-                                        <div class="iitem1">
-                                            <table>
-                                                <tr>
-                                                    <td><label for="">Barcode :</label></td><td><label for=""></label></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><label for="">Item Code :</label></td><td><label for="">A</label></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="iitem2">
-                                            <table>
-                                                <tr>
-                                                    <td><label for="">Locations :</label></td><td><label for=""></label></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><label for="">Zone :</label></td><td><label for=""></label></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="iitem3">
-                                            <table>
-                                                <tr>
-                                                    <td><label for="">Yearly Avg :</label></td><td><label for=""></label></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><label for="">In Stock :</label></td><td><label for=""></label></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="iitem4">
-                                            <table>
-                                                <tr>
-                                                    <td><label for="">Total Sold :</label></td><td><label for=""></label></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><label for="">Warehouse Stock :</label></td><td><label for=""></label></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
+                                <div className="md:block">
+                                    <table>
+                                        {
+                                            products.map(
+                                                (product, itemIdx) =>
+                                                    <tr>
+                                                        <td key={itemIdx}> {product.name} </td>
+                                                        <td> {product.item_code} </td>
+                                                    </tr>
+                                            )
+                                        }
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -142,4 +77,19 @@ function ProductReport() {
     )
 }
 
-export default ProductReport
+const mapStateToProps = state => {
+    return {
+        products: state.product.products,
+        loading: state.product.loading,
+        error: state.product.error,
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        searchProduct: (searchTerm) => dispatch(searchProduct(searchTerm)),
+    };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductReport);
