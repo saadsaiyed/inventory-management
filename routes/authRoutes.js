@@ -31,4 +31,26 @@ module.exports = (app) => {
             res.send(req.user);
         }
     )
+
+    app.post(
+        '/api/user',
+        async (req, res) => {
+            console.log(req.body);
+            const {
+                googleID,
+                user_type,
+                phone,
+                email_subscription
+            } = req.body;
+
+            // const user = await new User({
+            //     googleID,
+            //     user_type,
+            //     phone,
+            //     email_subscription
+            // }).save();
+
+            res.send(user);
+        }
+    )
 }

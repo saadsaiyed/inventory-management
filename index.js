@@ -1,9 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cookieSession = require("cookie-session");
 const passport = require("passport");
 const keys = require("./config/keys");
+
+//middlewares
+const cookieSession = require("cookie-session");
 const cors = require("cors");
+const bodyParser = require('body-parser');
+
 
 //we are using this way of importing modules because this way
 // import express from 'express'
@@ -20,6 +24,7 @@ mongoose.connect(keys.mongoURI, { useUnifiedTopology: true });  // Connect to th
 
 const app = express();
 
+//These are middleware functions which manipulate the incoming requests before sending them to routes
 app.use(cors());
 app.use(
 	cookieSession({
@@ -29,7 +34,11 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
+
+//These are route handlers which will handle the incoming requests
 require("./routes/authRoutes")(app); // This is to pass the app instance to the authRoutes.js
 require("./routes/productRoutes")(app); 
 require("./routes/barcodeRoutes")(app); 

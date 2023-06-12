@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 
-function handleSubmit(params) {
-
+function handleSubmit() {
+    this.search
 }
 
 function ProductReport() {
@@ -29,6 +29,7 @@ function ProductReport() {
                                     name="product_search"
                                     type="text"
                                 />
+                                <input type="submit" value="Submit" name="submit" />
                             </div>
                         </div>
                     </div>

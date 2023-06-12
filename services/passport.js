@@ -6,9 +6,11 @@ const keys = require("../config/keys");
 const Barcode = mongoose.model("barcodes");
 const User = mongoose.model("users");
 
+//This is to encrypt the userid in the cookie.
 passport.serializeUser((user, done) => {
     done(null, user.id);
 });
+//This is to dycrypt the userid in the cookie.
 passport.deserializeUser((id, done) => {
     User.findById(id).then(user => {
         done(null, user);

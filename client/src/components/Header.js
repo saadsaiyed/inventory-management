@@ -9,33 +9,83 @@ import { Link } from "react-router-dom";
 const navigation = ["Dashboard", "Invoice", "Production", "ProductReport"];
 const profile = ["Your Profile", "Settings", "Sign out"];
 
-// function classNames(...classes) {
-//     return classes.filter(Boolean).join(" ");
-// }
+function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+}
 
 class Header extends Component {
-    // renderContent() {
-    //     switch (this.props.auth) {
-    //         case null:
-    //             return;
-    //         case false:
-    //             return (
-    //                 <li>
-    //                     <a className="black-text" href="/auth/google">
-    //                         Log in with Google
-    //                     </a>
-    //                 </li>
-    //             );
-    //         default:
-    //             return (
-    //                 <li>
-    //                     <a className="black-text" href="/api/user/logout">
-    //                         Log Out
-    //                     </a>
-    //                 </li>
-    //             );
-    //     }
-    // }
+    renderContent() {
+        switch (this.props.auth) {
+            case null:
+                return;
+            case false:
+                return (
+                    <Menu
+                        as="div"
+                        className="ml-3 relative"
+                    >
+
+                        <li>
+                            <a className="black-text" href="/auth/google">
+                                Log in with Google
+                            </a>
+                        </li>
+                    </Menu>
+                );
+            default:
+                return (
+                    <Menu
+                        as="div"
+                        className="ml-3 relative"
+                    >
+                        <div>
+                            <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                                <span className="sr-only">
+                                    Open user menu
+                                </span>
+                                <img
+                                    className="h-8 w-8 rounded-full"
+                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                    alt=""
+                                />
+                            </Menu.Button>
+                        </div>
+                        <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                        >
+                            <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                {profile.map((item) => (
+                                    <Menu.Item
+                                        key={item}
+                                    >
+                                        {({
+                                            active,
+                                        }) => (
+                                            // eslint-disable-next-line jsx-a11y/anchor-is-valid
+                                            <a
+                                                href="#"
+                                                className={classNames(
+                                                    active ? "bg-gray-100" : "",
+                                                    "block px-4 py-2 text-sm text-gray-700"
+                                                )}
+                                            >
+                                                {item}
+                                            </a>
+                                        )}
+                                    </Menu.Item>
+                                ))}
+                            </Menu.Items>
+                        </Transition>
+                    </Menu>
+                );
+        }
+    }
 
     render() {
         return (
@@ -47,7 +97,7 @@ class Header extends Component {
                                 <div className="flex items-center justify-between h-16">
                                     <div className="flex items-center">
                                         <div className="flex-shrink-0">
-                                            <Link to={this.props.auth ? '/Dashboard': '/'}>
+                                            <Link to={this.props.auth ? '/Dashboard' : '/'}>
                                                 <img
                                                     className="h-8 w-8"
                                                     src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
@@ -55,7 +105,7 @@ class Header extends Component {
                                                 />
                                             </Link>
                                         </div>
-                                        <div className="hidden md:block">
+                                        <div className="md:block">
                                             <div className="ml-10 flex items-baseline space-x-4">
                                                 {navigation.map(
                                                     (item, itemIdx) =>
@@ -82,6 +132,12 @@ class Header extends Component {
                                                         )
                                                 )}
                                             </div>
+                                        </div>
+                                    </div>
+                                    {/* Profile dropdown */}
+                                    <div className="hidden md:block">
+                                        <div className="ml-4 flex items-center md:ml-6">
+                                            {this.renderContent()}
                                         </div>
                                     </div>
                                     <div className="-mr-2 flex md:hidden">
