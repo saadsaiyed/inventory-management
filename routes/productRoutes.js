@@ -32,13 +32,17 @@ module.exports = app => {
     app.post("/api/product", async (req, res) => {
         const { name, item_code } = req.body;
 
-        const product = new product({ name, item_code }).save();
+        const product = new Product({ name, item_code }).save();
 
         res.send(product);
     });
 
-    app.get("/api/product/:id", async (req, res) => {
-        const response = await Product.findById(req.params.id);
+    app.get("/api/product/:id/all", async (req, res) => {
+        const id = req.params.id;
+
+        const product = await Product.findById(id);
+        const barcodes = await Barcode.find({ _product: id });
+        const response = { product, barcodes };
         res.send(response);
     });
 };

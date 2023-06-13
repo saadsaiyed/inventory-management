@@ -17,6 +17,7 @@ const bodyParser = require('body-parser');
 require("./models/User");
 require("./models/Product");
 require("./models/Barcode");
+require("./models/Invoice");
 
 require("./services/passport");
 
@@ -42,6 +43,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 require("./routes/authRoutes")(app); // This is to pass the app instance to the authRoutes.js
 require("./routes/productRoutes")(app); 
 require("./routes/barcodeRoutes")(app); 
+require("./routes/invoiceRoutes")(app); 
 
 app.get("/", async (req, res) => {
 	res.send({
