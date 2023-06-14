@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const invoiceSchema = new Schema({
-    invoiceNumber: {
+    invoice_number: {
         type: String,
         required: true,
         unique: true,

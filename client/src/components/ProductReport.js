@@ -45,7 +45,7 @@ const ProductReport = ({ searchProduct, products, loading, error }) => {
                                     type="text"
                                     onChange={(e) => handleSearch(e.target.value)}
                                 />
-                                <input type="submit" value="Submit" name="submit" />
+                                <input className="" type="submit" value="Submit" name="submit" />
                             </div>
                         </div>
                     </div>
